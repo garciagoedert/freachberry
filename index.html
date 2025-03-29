@@ -475,10 +475,30 @@
             text-align: center;
         }
 
-        .footer-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
+.footer-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Adicionar estilos específicos para a logo no rodapé */
+footer .logo {
+    display: inline-flex; /* Torna o container inline, permitindo text-align: center do pai */
+    align-items: center;
+    color: var(--white); /* Garante a cor branca */
+    margin-bottom: 1.5rem; /* Adiciona espaço abaixo */
+    font-size: 1.2rem; /* Ajusta o tamanho da fonte */
+    font-weight: 700;
+    text-decoration: none; /* Remove sublinhado se houver */
+}
+
+/* Ajusta o ícone da logo no rodapé */
+footer .logo .logo-icon {
+    background-color: rgba(255, 255, 255, 0.1); /* Cor de fundo sutil */
+    color: var(--white);
+    margin-right: 8px;
+    width: 35px;
+    height: 35px;
+}
 
         .social-links {
             display: flex;
