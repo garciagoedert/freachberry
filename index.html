@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freach Berry | Açaí Premium</title>
+    <style>
+        /* Variáveis e Reset */
+        :root {
+            --primary: #4a154b;
+            --secondary: #8a2be2;
+            --accent: #ff6b6b;
+            --light: #f8f0ff;
+            --dark: #1c0522;
+            --text: #333333;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Tipografia */
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        header.scrolled {
+            background-color: var(--white);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        .menu-toggle {
+            display: block;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        .nav-links {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 70%;
+            height: 100vh;
+            background-color: var(--primary);
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            transition: right 0.3s ease;
+        }
+
+        .nav-links.active {
+            right: 0;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            padding: 1rem 0;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .close-menu {
+            align-self: flex-end;
+            color: var(--white);
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section - APRIMORADO */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: var(--dark);
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(74, 21, 75, 0.95), rgba(28, 5, 34, 0.8)), url('/imgs/IMG_3682.JPEG'); /* Aumentei a opacidade para escurecer */
+            /* background-image: url('/imgs/IMG_4814.JPG'); */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 1;
+            /* filter: blur(10px); */
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+            color: var(--white);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            display: flex;
+            /* flex-direction: column; /* Removido para alinhar em linha */
+            justify-content: center; /* Adicionado para centralizar horizontalmente */
+            gap: 1rem;
+            align-items: center; /* Mantido para alinhamento vertical */
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--white);
+            align-items: center;
+            align-self: center;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 0.8rem 1.2rem;
+            border-radius: 30px;
+            -webkit-backdrop-filter: blur(5px); /* Adicionado para compatibilidade com Safari */
+            backdrop-filter: blur(5px);
+        }
+
+        .hero-feature i {
+            margin-right: 0.5rem;
+            color: var(--accent);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            color: var(--white);
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            50% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+
+        /* Sobre nós */
+        .about {
+            padding: 6rem 1rem;
+            background-color: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            display: inline-block;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .about-img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        /* Produtos */
+        .products {
+            padding: 6rem 1rem;
+            background-color: var(--light);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Depoimentos */
+        .testimonials {
+            padding: 6rem 1rem;
+            background-color: var(--white);
+        }
+
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .testimonial {
+            background-color: var(--light);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        .testimonial:before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--primary);
+            opacity: 0.2;
+            position: absolute;
+            top: -10px;
+            left: 10px;
+        }
+
+        .customer-info {
+            display: flex;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+
+        .customer-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+        }
+
+        .customer-name {
+            font-weight: 600;
+        }
+
+        /* Contato */
+        .contact {
+            padding: 6rem 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+        }
+
+        .contact h2 {
+            color: var(--white);
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .contact-info {
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .contact-icon {
+            margin-right: 1rem;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-form {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 0.5rem;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Responsividade */
+        @media (min-width: 768px) {
+            .menu-toggle {
+                display: none;
+            }
+
+            .nav-links {
+                position: static;
+                width: auto;
+                height: auto;
+                background-color: transparent;
+                display: flex;
+                flex-direction: row;
+                padding: 0;
+            }
+
+            .nav-links a {
+                color: var(--primary);
+                padding: 0 1rem;
+                border-bottom: none;
+            }
+
+            .close-menu {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .hero-cta {
+                flex-direction: row;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .about-content {
+                flex-direction: row;
+                text-align: left;
+            }
+
+            .about-img {
+                margin-right: 2rem;
+                margin-bottom: 0;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header id="header">
+        <nav class="navbar">
+            <a href="#" class="logo">
+                <span class="logo-icon"><i class="fas fa-leaf"></i></span>
+                Freach Berry
+            </a>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <button class="close-menu" id="closeMenu">
+                    <i class="fas fa-times"></i>
+                </button>
+                <a href="#home">Home</a>
+                <a href="#about">Sobre</a>
+                <a href="#products">Produtos</a>
+                <a href="#testimonials">Depoimentos</a>
+                <a href="#contact">Contato</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section APRIMORADO -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <span class="hero-badge">Açaí Premium</span>
+            <h1>Descubra o Poder do Açaí da Amazônia</h1>
+            <p class="hero-description">Sabor intenso e energia natural em cada porção. Uma experiência única de superalimento, cuidadosamente selecionado da Amazônia para seu dia a dia.</p>
+            
+            <div class="hero-cta">
+                <a href="#products" class="btn btn-primary">Explorar Produtos</a>
+                <a href="#about" class="btn btn-secondary">Nossa História</a>
+            </div>
+            
+            <div class="hero-features">
+                <div class="hero-feature">
+                    <i class="fas fa-leaf"></i>
+                    <span>Natural</span>
+                </div>
+                <div class="hero-feature">
+                    <i class="fas fa-award"></i>
+                    <span>Premium</span>
+                </div>
+                <div class="hero-feature">
+                    <i class="fas fa-heart"></i>
+                    <span>Superalimento</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll" id="heroScroll">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Sobre Nós -->
+    <section class="about" id="about">
+        <div class="section-title">
+            <h2>Sobre a Freach Berry</h2>
+        </div>
+        <div class="about-content">
+            <img src="/imgs/IMG_4814.JPG" alt="Produção de açaí Freach Berry" class="about-img">
+            <div>
+                <p>Nascemos com a missão de trazer para você o melhor açaí do Brasil, direto da Amazônia para sua mesa. Com processos rigorosos de seleção e processamento, garantimos um produto premium que preserva todos os nutrientes e sabor da fruta.</p>
+                <p>Na Freach Berry, acreditamos que alimentos saudáveis devem ser também deliciosos. Por isso, desenvolvemos receitas exclusivas que encantam paladares exigentes e proporcionam energia para seu dia a dia.</p>
+                <p>Sustentabilidade é nosso compromisso. Trabalhamos em parceria direta com produtores locais, garantindo práticas sustentáveis de colheita e produção que respeitam o meio ambiente e valorizam as comunidades locais.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Produtos -->
+    <section class="products" id="products">
+        <div class="section-title">
+            <h2>Nossos Produtos</h2>
+        </div>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="/imgs/terceira.JPG" alt="Açaí Tradicional" class="product-img">
+                <div class="product-info">
+                    <h3 class="product-title">Açaí Tradicional</h3>
+                    <p class="product-price">R$ 18,90</p>
+                    <p>Nossa receita clássica de açaí puro, denso e cremoso. Rico em antioxidantes e com sabor intenso.</p>
+                    <a href="#" class="btn btn-primary">Comprar</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="/imgs/terceira.JPG" alt="Açaí com Guaraná" class="product-img">
+                <div class="product-info">
+                    <h3 class="product-title">Açaí com Guaraná</h3>
+                    <p class="product-price">R$ 21,90</p>
+                    <p>Energia dobrada! Nosso açaí premium combinado com guaraná amazônico para potencializar sua disposição.</p>
+                    <a href="#" class="btn btn-primary">Comprar</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="/imgs/terceira.JPG" alt="Açaí Protein" class="product-img">
+                <div class="product-info">
+                    <h3 class="product-title">Açaí Protein</h3>
+                    <p class="product-price">R$ 25,90</p>
+                    <p>Desenvolvido para atletas e praticantes de atividades físicas, com adição de proteína vegetal.</p>
+                    <a href="#" class="btn btn-primary">Comprar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Depoimentos -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-title">
+            <h2>O que nossos clientes dizem</h2>
+        </div>
+        <div class="testimonial-slider">
+            <div class="testimonial">
+                <p>"O açaí da Freach Berry mudou minha rotina! É perfeito para o pós-treino e tem um sabor incrível. Já experimentei várias marcas, mas nenhuma se compara à qualidade que encontrei aqui."</p>
+                <div class="customer-info">
+                    <img src="/api/placeholder/50/50" alt="Cliente Mariana" class="customer-img">
+                    <div>
+                        <div class="customer-name">Mariana Silva</div>
+                        <div class="customer-title">Nutricionista</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <p>"Como atleta, busco sempre produtos de qualidade que contribuam para minha performance. O Açaí Protein da Freach Berry é simplesmente sensacional, me dá energia para todo o dia e ajuda na minha recuperação."</p>
+                <div class="customer-info">
+                    <img src="/api/placeholder/50/50" alt="Cliente Rafael" class="customer-img">
+                    <div>
+                        <div class="customer-name">Rafael Santos</div>
+                        <div class="customer-title">Atleta Profissional</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section class="contact" id="contact">
+        <div class="section-title">
+            <h2>Entre em Contato</h2>
+        </div>
+        <div class="contact-content">
+            <div class="contact-info">
+                <p>Estamos sempre disponíveis para atender você. Entre em contato conosco para saber mais sobre nossos produtos, parcerias comerciais ou simplesmente para compartilhar sua experiência com o açaí Freach Berry.</p>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div>
+                        Av. das Palmeiras, 1500<br>
+                        Belém, PA - Brasil
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div>
+                        +55 (91) 3333-4444
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        contato@freachberry.com.br
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Seu nome">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="Seu e-mail">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Assunto">
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" placeholder="Sua mensagem"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="footer-content">
+            <div class="logo">
+                <span class="logo-icon"><i class="fas fa-leaf"></i></span>
+                Freach Berry
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-icon" aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-icon" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-icon" aria-label="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-icon" aria-label="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+            <div>
+                <p>Experimente o verdadeiro sabor do açaí premium.</p>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Freach Berry. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu mobile
+        const menuToggle = document.getElementById('menuToggle');
+        const closeMenu = document.getElementById('closeMenu');
+        const navLinks = document.getElementById('navLinks');
+        const header = document.getElementById('header');
+        const heroScroll = document.getElementById('heroScroll');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.add('active');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+        });
+
+        // Fechar o menu ao clicar em um link (no mobile)
+        const links = document.querySelectorAll('.nav-links a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Mudar o estilo do header ao rolar
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll suave para o botão de scroll
+        heroScroll.addEventListener('click', () => {
+            window.scrollTo({
+                top: document.getElementById('about').offsetTop - 80,
+                behavior: 'smooth'
+            });
+        });
+
+        // Scroll suave para âncoras
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
